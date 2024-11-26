@@ -104,7 +104,7 @@ export default function EditTodoDialog({ todo }: { todo: ITodo }) {
                                     <FormItem>
                                         <div className="flex items-center space-x-2">
                                             <FormControl>
-                                                <Checkbox checked={field.value} onCheckedChange={field.onChange} {...field} />
+                                                <Checkbox checked={field.value} onCheckedChange={field.onChange}  />
                                             </FormControl>
                                             <FormLabel>Completed</FormLabel>
                                         </div>

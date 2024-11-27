@@ -12,6 +12,7 @@ model Todo {
   title String
   body String?
   completed Boolean @default(false)
+  user_id String
   createdAt DateTime @default(now())
 }
 

@@ -1,13 +1,16 @@
 'use server'
-import { ITodo, TodoFormValues } from "@/validation-schema"
+import { ITodo } from "@/validation-schema"
 import { PrismaClient } from "@prisma/client"
 import { revalidatePath } from "next/cache"
 
 const prisma = new PrismaClient()
 
 // get todos to display
-export const getTodoAction = async () => {
+export const getUserTodoAction = async ({ userId }: { userId: string }) => {
     return await prisma.todo.findMany({
+        where: {
+            user_id: userId as string
+        },
         orderBy: {
             createdAt: "desc"
         }
@@ -15,12 +18,13 @@ export const getTodoAction = async () => {
 }
 
 // create todo
-export const createTodoAction = async ({ title, body, completed }: TodoFormValues) => {
+export const createTodoAction = async ({ title, body, completed, user_id }: { title: string; body: string; completed: boolean; user_id: string }) => {
     await prisma.todo.create({
         data: {
             title,
             body,
-            completed
+            completed,
+            user_id
         }
     })
     revalidatePath('/')

@@ -27,7 +27,7 @@ import { Checkbox } from "./ui/checkbox";
 import { useState } from "react";
 import Spinner from "./Spinner";
 
-export default function AddTodoDialog() {
+export default function AddTodoDialog({ userId }: { userId: string }) {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [open, setOpen] = useState<boolean>(false)
 
@@ -45,7 +45,7 @@ export default function AddTodoDialog() {
 
     const onSubmit = async (data: TodoFormValues) => {
         setIsLoading(true)
-        await createTodoAction({ title: data.title, body: data.body, completed: data.completed });
+        await createTodoAction({ title: data.title, body: data.body as string, completed: data.completed, user_id: userId });
         setIsLoading(false)
         setOpen(false)
     }
@@ -104,7 +104,7 @@ export default function AddTodoDialog() {
                                     <FormItem>
                                         <div className="flex items-center space-x-2">
                                             <FormControl>
-                                                <Checkbox checked={field.value} onCheckedChange={field.onChange}  />
+                                                <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                                             </FormControl>
                                             <FormLabel>Completed</FormLabel>
                                         </div>

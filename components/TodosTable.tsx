@@ -11,6 +11,7 @@ import {
 import { ITodo } from "@/validation-schema"
 import { Badge } from "./ui/badge"
 import ActionButtons from "./ActionButtons"
+import { notFound } from "next/navigation"
 
 export function TodosTable({ todos }: { todos: ITodo[] }) {
 
@@ -27,6 +28,7 @@ export function TodosTable({ todos }: { todos: ITodo[] }) {
             </TableHeader>
             <TableBody>
                 {
+                    !todos.length?notFound():
                     todos.map((todo) => (
                         <TableRow key={todo.id}>
                             <TableCell className="font-medium">{todo.id}</TableCell>
